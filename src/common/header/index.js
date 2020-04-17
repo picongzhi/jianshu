@@ -51,7 +51,7 @@ class Header extends Component {
               />
             </CSSTransition>
             <i className={focused ? 'focused iconfont zoom' : 'iconfont zoom'}>&#xe623;</i>
-            {this.getListArea(focused)}
+            {this.getListArea()}
           </SearchWrapper>
         </Nav>
         <Addition>
@@ -128,7 +128,6 @@ const mapDispatchToProps = (dispatch) => {
   return {
     handleInputFocus(list) {
       dispatch(searchFocus());
-
       if (list.size === 0) {
         dispatch(actionCreators.getList());
       }

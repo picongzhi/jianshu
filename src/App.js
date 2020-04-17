@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import store from './store';
 import {Provider} from 'react-redux';
 import {Route, BrowserRouter} from 'react-router-dom';
@@ -12,7 +12,7 @@ class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <div>
+        <Fragment>
           <GlobalStyle/>
           <IconFont/>
 
@@ -23,7 +23,7 @@ class App extends Component {
               <Route path='/detail' exact component={Detail}/>
             </div>
           </BrowserRouter>
-        </div>
+        </Fragment>
       </Provider>
     );
   }
