@@ -1,5 +1,6 @@
 import axios from "axios";
-import {CHANGE_HOME_DATA} from './constants';
+import {fromJS} from 'immutable'
+import {CHANGE_HOME_DATA, ADD_ARTICLE_LIST} from './constants';
 
 export const getHomeData = () => {
   return (dispatch) => {
@@ -14,10 +15,28 @@ export const getHomeData = () => {
   }
 };
 
+export const getMoreList = (page) => {
+  return (dispatch) => {
+    axios.get('/api/homeList.json?page=' + page)
+      .then(res => {
+        const result = res.data.data;
+        dispatch(addHomeList(result, page + 1));
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  };
+};
+
 const changeHomeData = (result) => ({
   type: CHANGE_HOME_DATA,
-  topicList: result.topicList,
-  articleList: result.articleList,
-  recommendList: result.recommendList
+  topicList: fromJS(result.topicList),
+  articleList: fromJS(result.articleList),
+  recommendList: fromJS(result.recommendList)
 });
 
+const addHomeList = (result, nextPage) => ({
+  type: ADD_ARTICLE_LIST,
+  list: fromJS(result),
+  nextPage: nextPage
+});
