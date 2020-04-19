@@ -1,26 +1,37 @@
 import {fromJS} from 'immutable';
-import {CHANGE_HOME_DATA, ADD_ARTICLE_LIST} from './constants';
+import {CHANGE_HOME_DATA, ADD_ARTICLE_LIST, TOGGLE_SCROLL_TOP} from './constants';
 
 const defaultState = fromJS({
   topicList: [],
   articleList: [],
   recommendList: [],
-  articlePage: 1
+  articlePage: 1,
+  showScroll: false
 });
+
+const changeHomeData = (state, action) => {
+  return state.merge({
+    topicList: action.topicList,
+    articleList: action.articleList,
+    recommendList: action.recommendList
+  });
+};
+
+const addArticleList = (state, action) => {
+  return state.merge({
+    'articleList': state.get('articleList').concat(action.list),
+    'articlePage': action.nextPage
+  });
+};
 
 export default (state = defaultState, action) => {
   switch (action.type) {
     case CHANGE_HOME_DATA:
-      return state.merge({
-        topicList: action.topicList,
-        articleList: action.articleList,
-        recommendList: action.recommendList
-      });
+      return changeHomeData(state, action);
     case ADD_ARTICLE_LIST:
-      return state.merge({
-        'articleList': state.get('articleList').concat(action.list),
-        'articlePage': action.nextPage
-      });
+      return addArticleList(state, action);
+    case TOGGLE_SCROLL_TOP:
+      return state.set('showScroll', action.show);
     default:
       return state;
   }
