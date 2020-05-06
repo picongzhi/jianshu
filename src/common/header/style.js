@@ -3,17 +3,15 @@ import logoPic from '../../statics/logo.png';
 
 export const HeaderWrapper = styled.div`
   position: relative;
+  z-index: 1;
   height: 58px;
   border-bottom: 1px solid #f0f0f0;
 `;
 
-export const Logo = styled.a.attrs({
-  href: '/'
-})`
+export const Logo = styled.div`
   position: absolute;
   top: 0;
   left: 0;
-  display: block;
   width: 100px;
   height: 56px;
   background: url(${logoPic});
@@ -33,6 +31,7 @@ export const NavItem = styled.div`
   padding: 0 15px;
   font-size: 17px;
   color: #333;
+  cursor: pointer;
   &.left {
     float: left;
   }
